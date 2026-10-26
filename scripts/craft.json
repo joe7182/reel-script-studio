@@ -1,0 +1,299 @@
+{
+  "_note": "Craft bar. Hard = AI tells that should never ship. Soft = usually weak; the council decides.",
+  "cliche_hard": {
+    "ar": [
+      "في عالم اليوم",
+      "هل تعلم",
+      "دعونا",
+      "في هذا الفيديو سوف",
+      "تابع للنهاية",
+      "لا تفوت الفرصة",
+      "اكتشف السر"
+    ],
+    "en": [
+      "in today's world",
+      "let's dive in",
+      "game changer",
+      "game-changer",
+      "unlock the",
+      "level up your",
+      "did you know",
+      "in this video i will",
+      "without further ado",
+      "buckle up"
+    ]
+  },
+  "cliche_soft": {
+    "ar": [
+      "سر",
+      "مذهل",
+      "لا يصدق",
+      "غير حياتك",
+      "خطير",
+      "رهيب",
+      "ثوره"
+    ],
+    "en": [
+      "secret",
+      "insane",
+      "mind-blowing",
+      "hack",
+      "crazy",
+      "revolutionary",
+      "next level"
+    ]
+  },
+  "retention_templates": {
+    "ar": [
+      "وبالاخر راح تشوف",
+      "بالاخر راح تشوف",
+      "خليك للاخر",
+      "ابق للنهايه",
+      "شوف للاخر"
+    ],
+    "en": [
+      "by the end you'll see",
+      "stick around",
+      "stay till the end",
+      "wait for it",
+      "watch till the end"
+    ]
+  },
+  "contrast_patterns": {
+    "ar": "(?:^|\\s)(?:مو|مش|ليس|ما)\\s+(?:ب|بال)?\\S+[^.؟!]{0,30}?[،,]?\\s*(?:بل|لكن|الحل|المشكله|السر|الفرق)\\s",
+    "en": "\\bnot\\b[^.?!]{1,30}[,;—-]\\s*(?:it'?s|but|it is)\\b"
+  },
+  "regulated_guarantee": {
+    "ar": [
+      "مضمون",
+      "مضمونة",
+      "نتيجة مضمونة",
+      "١٠٠٪ مضمون",
+      "100% مضمون",
+      "بدون أي مجهود",
+      "يعالج",
+      "علاج نهائي"
+    ],
+    "en": [
+      "guaranteed",
+      "guarantee",
+      "risk-free",
+      "cure",
+      "cures",
+      "100% results"
+    ]
+  },
+  "overlay_echo_ratio": 0.7,
+  "caption_echo_ratio": 0.6,
+  "max_questions": 2,
+  "rules": {
+    "hook-proposition-3s": {
+      "en": "Say what the viewer gets within the first 3 seconds; a greeting or intro spends them on nothing.",
+      "ar": "قول شنو ياخذ المشاهد بأول ٣ ثواني؛ التحية والمقدمة تصرفها على لا شي."
+    },
+    "hook-first-frame": {
+      "en": "The first frame is judged before any word: show the situation, not a face waiting to talk.",
+      "ar": "أول لقطة تنحكم قبل أي كلمة: بيّن الموقف، مو وجه ينتظر يحچي."
+    },
+    "sound-off-overlay": {
+      "en": "The on-screen text must carry the hook alone for viewers watching with the sound off.",
+      "ar": "النص على الشاشة لازم يشيل الخطّاف وحده للي يتفرج بدون صوت."
+    },
+    "stranger-context": {
+      "en": "A non-follower doesn't know you or your series: the first line must make sense on its own.",
+      "ar": "اللي ما يتابعك ما يعرفك: أول سطر لازم ينفهم وحده."
+    },
+    "skeptic-cliche": {
+      "en": "A viewer who has seen this topic many times leaves at the first familiar line.",
+      "ar": "اللي شاف الموضوع هواية يطلع من أول جملة مألوفة."
+    },
+    "specific-benefit": {
+      "en": "Name the concrete benefit; 'a cool feature' gives no reason to stay.",
+      "ar": "سمِّ الفائدة بالضبط؛ «ميزة حلوة» ما تعطي سبب للبقاء."
+    },
+    "creator-detail": {
+      "en": "Include one detail only this creator could say: their number, mistake or story.",
+      "ar": "تفصيل واحد ما يگوله غير المبدع: رقمه، غلطته، أو قصته."
+    },
+    "proof-visible": {
+      "en": "A claim the viewer can see beats a claim they must trust.",
+      "ar": "الادعاء اللي ينشاف أقوى من اللي لازم ينصدّق."
+    },
+    "payoff-before-cta": {
+      "en": "Pay off the hook's promise before asking for anything.",
+      "ar": "وفِّ بوعد الخطّاف قبل ما تطلب أي شي."
+    },
+    "cta-one-action": {
+      "en": "One action, tied to the goal.",
+      "ar": "طلب واحد مربوط بالهدف."
+    },
+    "overlay-adds": {
+      "en": "Overlays add what the voice doesn't say.",
+      "ar": "النص على الشاشة يضيف شي ما ينگال بالصوت."
+    },
+    "one-idea": {
+      "en": "One idea per Reel; a rushed list loses the viewer.",
+      "ar": "فكرة وحدة بكل ريل؛ القائمة المستعجلة تضيّع المشاهد."
+    },
+    "voice-own-words": {
+      "en": "The creator's own words outrank a draft.",
+      "ar": "كلام المبدع نفسه أعلى من المسودة."
+    },
+    "clear-reference": {
+      "en": "Every 'it' or 'this' needs a subject the viewer already heard or saw.",
+      "ar": "كل «هو» أو «هذا» لازم يرجع لشي المشاهد سمعه أو شافه."
+    },
+    "hook-specificity": {
+      "en": "A specific number, name or object in the hook package beats a general promise.",
+      "ar": "رقم أو اسم أو شي محدد بالخطّاف أقوى من وعد عام."
+    },
+    "no-growth": {
+      "en": "A rewrite of a draft that already fills its time shouldn't get longer; merge repeated points instead.",
+      "ar": "إذا المسودة أصلاً مالية وقتها، التعديل ما يطوّلها؛ ادمج الأفكار المكررة."
+    },
+    "no-unmeasured-claims": {
+      "en": "Don't claim speed or results you didn't measure; show it happening instead.",
+      "ar": "لا تدّعي سرعة أو نتيجة ما قستها؛ خلّها تنشاف على الشاشة."
+    }
+  },
+  "prediction_words": {
+    "ar": [
+      "رح ينتشر",
+      "راح ينتشر",
+      "سينتشر",
+      "فايرال",
+      "ترند مضمون",
+      "مشاهدات أكثر",
+      "يجيب مشاهدات",
+      "الخوارزمية راح",
+      "الخوارزمية رح",
+      "مليون مشاهدة"
+    ],
+    "en": [
+      "go viral",
+      "goes viral",
+      "more views",
+      "guaranteed reach",
+      "the algorithm will",
+      "will blow up",
+      "million views"
+    ]
+  },
+  "generic_persona": {
+    "ar": [
+      "شخص مهتم",
+      "أي شخص",
+      "الجميع",
+      "كل الناس",
+      "مستخدم عادي",
+      "جمهور عام"
+    ],
+    "en": [
+      "anyone",
+      "everyone",
+      "a person interested",
+      "people interested",
+      "general audience",
+      "average user",
+      "someone interested",
+      "someone who",
+      "a user",
+      "a person who"
+    ]
+  },
+  "pronoun_openers": {
+    "ar": [
+      "هو",
+      "هي",
+      "هم",
+      "هذا هو",
+      "هاي هي"
+    ],
+    "en": [
+      "it",
+      "they",
+      "this is it",
+      "he",
+      "she",
+      "it's",
+      "it’s",
+      "they're",
+      "they’re"
+    ]
+  },
+  "rhythm_min_cv": 0.25,
+  "specific_markers": {
+    "ar": [
+      "ساعة",
+      "ساعه",
+      "دقيقة",
+      "دقيقه",
+      "دقايق",
+      "ثانية",
+      "ثواني",
+      "يوم",
+      "يومياً",
+      "أسبوع",
+      "شهر",
+      "سنة",
+      "مرة",
+      "مرات",
+      "دينار",
+      "دولار",
+      "ريال",
+      "درهم",
+      "جنيه",
+      "بالمية"
+    ],
+    "en": [
+      "minute",
+      "minutes",
+      "hour",
+      "hours",
+      "second",
+      "seconds",
+      "day",
+      "days",
+      "week",
+      "month",
+      "year",
+      "times",
+      "dollars",
+      "percent"
+    ]
+  },
+  "unmeasured_claims": {
+    "ar": [
+      "بثانية",
+      "بثانيه",
+      "بثانية وحدة",
+      "بلحظة",
+      "بلمح البصر",
+      "فوراً",
+      "فورا",
+      "بدون قص",
+      "بدون مونتاج",
+      "بدون تعديل",
+      "فاهم رسالتك بالضبط",
+      "فاهمة رسالتك بالضبط",
+      "فاهم الرسالة بالضبط",
+      "فاهمة الرسالة بالضبط",
+      "يفهم بالضبط",
+      "تفهم بالضبط",
+      "يفهمك بالضبط",
+      "تفهمك بالضبط"
+    ],
+    "en": [
+      "in one second",
+      "in a second",
+      "in seconds",
+      "instantly",
+      "in no time",
+      "unedited",
+      "no cuts",
+      "not edited",
+      "understands exactly",
+      "knows exactly what you mean"
+    ]
+  }
+}

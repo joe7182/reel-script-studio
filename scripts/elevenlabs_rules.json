@@ -1,0 +1,70 @@
+{
+  "last_verified": "2026-10-02",
+  "_note": "Update this file and references/elevenlabs-tags.md together when ElevenLabs changes models or tags. Nothing else depends on these details.",
+  "verified_tags": [
+    "pause",
+    "long pause",
+    "excited",
+    "whispers",
+    "sighs",
+    "laughs"
+  ],
+  "pause_tags": [
+    "pause",
+    "long pause"
+  ],
+  "models": {
+    "v4": {
+      "label": "Eleven v4",
+      "brackets": true,
+      "break_tag": false,
+      "break_status": "confirmed 2026-10-02: silently ignored (no gap)"
+    },
+    "v4_turbo": {
+      "label": "Eleven v4 Turbo",
+      "brackets": true,
+      "break_tag": false,
+      "break_status": "assumed same as v4: unconfirmed"
+    },
+    "v3": {
+      "label": "Eleven v3",
+      "brackets": true,
+      "break_tag": false,
+      "break_status": "confirmed: v3 does not support SSML break"
+    },
+    "multilingual_v2": {
+      "label": "Multilingual v2",
+      "brackets": false,
+      "break_tag": true,
+      "max_breaks_per_clip": 2
+    },
+    "other": {
+      "label": "Other model",
+      "brackets": false,
+      "break_tag": false
+    }
+  },
+  "accent_tags": {
+    "_note": "Put at the start of every clip on tag models (v4/v4 Turbo/v3). Combine with dialect diacritics. 'verified' = tested by ear.",
+    "iraqi": {
+      "tag": "strong Iraqi accent",
+      "verified": "2026-10-02, Eleven v4: more Iraqi than diacritics alone; not read aloud"
+    },
+    "gulf": {
+      "tag": "strong Gulf accent",
+      "verified": "provisional 2026-10-02, Eleven v4: not read aloud; accent shift judged by a non-native listener; needs native-speaker review"
+    },
+    "saudi": {
+      "tag": "strong Saudi accent",
+      "verified": "provisional 2026-10-02, Eleven v4: not read aloud; accent shift judged by a non-native listener; needs native-speaker review"
+    },
+    "egyptian": {
+      "tag": "strong Egyptian accent",
+      "verified": null
+    },
+    "levantine": {
+      "tag": "strong Levantine accent",
+      "verified": null
+    }
+  }
+}

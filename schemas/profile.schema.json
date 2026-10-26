@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Reel Script Studio creator profile",
+  "type": "object",
+  "required": ["rss_creator_profile", "saved", "language", "dialect", "register", "style", "default_style", "recording"],
+  "properties": {
+    "rss_creator_profile": {"enum": [3]},
+    "saved": {"type": "string"},
+    "language": {"enum": ["ar", "en"]},
+    "dialect": {"enum": ["iraqi", "gulf", "saudi", "egyptian", "levantine", "msa", "pan_arab", "english"]},
+    "register": {"enum": ["heavy", "light", "simplified_msa"]},
+    "platform": {"enum": ["instagram", "tiktok", "youtube_shorts", "unknown"]},
+    "style": {"enum": ["yapping", "infotainment", "asmr_whisper", "professional", "hype", "deadpan", "relaxed_narrator"]},
+    "default_style": {"enum": ["yapping", "infotainment", "asmr_whisper", "professional", "hype", "deadpan", "relaxed_narrator"]},
+    "content_category": {"enum": ["tech", "education", "informational", "travel", "history", "news", "business", "lifestyle", "food", "fitness", "beauty", "comedy", "other"]},
+    "niche": {"type": "string"},
+    "audience": {"type": "string"},
+    "voice_sample": {"type": "string"},
+    "best_script": {"type": ["object", "null"], "properties": {"text": {"type": "string"}, "numbers": {"type": "string"}}},
+    "recording": {"type": "object", "required": ["method"], "properties": {"method": {"enum": ["own_voice_camera", "voice_over", "screen_recording", "ai_voice", "none"]}, "elevenlabs_model": {"type": "string"}}},
+    "pacing": {"type": ["object", "null"]},
+    "human_texture": {"type": "array", "items": {"type": "string"}},
+    "voice_fingerprint": {"type": ["object", "null"]},
+    "performance_baseline": {"type": ["object", "null"]}
+  }
+}

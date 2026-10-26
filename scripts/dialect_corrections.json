@@ -1,0 +1,24 @@
+{
+ "_note": "wrong → right per dialect. native_verified = hard; provisional = soft. Grows from native review.",
+ "iraqi": [
+  {
+   "wrong": "طالعت",
+   "right": "باوعت",
+   "why": "Iraqi for 'looked at' is باوع (e.g. «باوعت عالصورة»); طالع reads Gulf/Levantine here",
+   "status": "native_verified",
+   "verified_by": "owner 2026-10-07"
+  },
+  {
+   "wrong": "امبارح",
+   "right": "البارحة",
+   "why": "امبارح is Levantine/Egyptian",
+   "status": "provisional"
+  },
+  {
+   "wrong": "لين",
+   "right": "لمن",
+   "why": "لين (until) is Gulf",
+   "status": "provisional"
+  }
+ ]
+}

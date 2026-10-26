@@ -1,0 +1,1731 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Reel Script Studio result",
+  "type": "object",
+  "required": [
+    "meta",
+    "intake",
+    "idea",
+    "audit",
+    "beats",
+    "presets",
+    "final_script",
+    "self_assessment",
+    "council",
+    "voice",
+    "production",
+    "publish",
+    "research",
+    "concept",
+    "viewer_mind"
+  ],
+  "$defs": {
+    "severity": {
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "scored": {
+      "type": "object",
+      "required": [
+        "score",
+        "reason"
+      ],
+      "properties": {
+        "score": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "option": {
+      "type": "object",
+      "required": [
+        "id",
+        "text",
+        "onscreen",
+        "mechanism",
+        "tag",
+        "why"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "e.g. h1..h5, r1..r3, p1.., s1.., f1.., c1.."
+        },
+        "text": {
+          "type": "string",
+          "description": "Spoken line, 1-2 sentences, self-contained"
+        },
+        "onscreen": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "On-screen text cards, each max 6 words"
+        },
+        "mechanism": {
+          "type": "string"
+        },
+        "tag": {
+          "enum": [
+            "recommended",
+            "safe_edit",
+            "bold"
+          ]
+        },
+        "new": {
+          "type": "boolean",
+          "default": false
+        },
+        "why": {
+          "type": "string"
+        },
+        "scores": {
+          "type": "object",
+          "description": "Hooks only: clarity, tension, relevance, credibility 1-5"
+        },
+        "flags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "e.g. needs_footage, no_proof_available"
+        },
+        "proof_uses": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "screenshots",
+              "before_after",
+              "results",
+              "demo_footage"
+            ]
+          },
+          "description": "Proof beat only: which declared evidence this option needs"
+        },
+        "visual": {
+          "type": "string",
+          "description": "Hooks: the first-frame visual"
+        },
+        "human_texture": {
+          "type": "boolean"
+        }
+      }
+    },
+    "coach": {
+      "type": "object",
+      "required": [
+        "habit",
+        "source",
+        "exercise"
+      ],
+      "properties": {
+        "habit": {
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "your_best_script",
+            "craft_rule",
+            "opinion"
+          ]
+        },
+        "exercise": {
+          "type": "string"
+        }
+      }
+    },
+    "basis": {
+      "type": "object",
+      "required": [
+        "type",
+        "ref"
+      ],
+      "description": "The evidence a recommendation rests on.",
+      "properties": {
+        "type": {
+          "enum": [
+            "research",
+            "creator_data",
+            "craft_rule",
+            "creator_said"
+          ]
+        },
+        "ref": {
+          "type": "string",
+          "description": "research: source id · creator_data: performance:<metric> | fingerprint:<field> | intake:<key> · craft_rule: id in scripts/craft.json rules · creator_said: the quote"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "title",
+        "url",
+        "accessed",
+        "observation",
+        "used_for",
+        "retrieval"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "angle",
+            "fact",
+            "audience",
+            "attention",
+            "platform"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "accessed": {
+          "type": "string",
+          "description": "YYYY-MM-DD"
+        },
+        "observation": {
+          "type": "string",
+          "description": "What the opened page actually says, briefly"
+        },
+        "used_for": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Which decisions this source changed"
+        },
+        "retrieval": {
+          "enum": [
+            "opened",
+            "snippet_only"
+          ]
+        }
+      }
+    },
+    "moment": {
+      "type": "object",
+      "required": [
+        "second",
+        "sees",
+        "heard_so_far",
+        "thinks",
+        "state"
+      ],
+      "properties": {
+        "second": {
+          "enum": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        "sees": {
+          "type": "string"
+        },
+        "heard_so_far": {
+          "type": "string",
+          "description": "Exact words spoken up to this second"
+        },
+        "thinks": {
+          "type": "string",
+          "description": "The viewer's inner voice, in their language"
+        },
+        "state": {
+          "enum": [
+            "hooked",
+            "curious",
+            "neutral",
+            "doubting",
+            "leaving"
+          ]
+        }
+      }
+    },
+    "run": {
+      "type": "object",
+      "required": [
+        "persona",
+        "moments",
+        "verdict",
+        "decided_at",
+        "reason",
+        "basis"
+      ],
+      "properties": {
+        "persona": {
+          "enum": [
+            "target",
+            "stranger",
+            "skeptic"
+          ]
+        },
+        "moments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/moment"
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "verdict": {
+          "enum": [
+            "stays",
+            "swipes"
+          ]
+        },
+        "decided_at": {
+          "enum": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "basis": {
+          "$ref": "#/$defs/basis"
+        }
+      }
+    },
+    "persona": {
+      "type": "object",
+      "required": [
+        "id",
+        "who",
+        "context",
+        "want",
+        "swipe_trigger"
+      ],
+      "properties": {
+        "id": {
+          "enum": [
+            "target",
+            "stranger",
+            "skeptic"
+          ]
+        },
+        "who": {
+          "type": "string"
+        },
+        "context": {
+          "type": "string"
+        },
+        "want": {
+          "type": "string"
+        },
+        "swipe_trigger": {
+          "type": "string"
+        }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "required": [
+        "ref",
+        "text",
+        "visual",
+        "onscreen",
+        "runs"
+      ],
+      "properties": {
+        "ref": {
+          "type": "string",
+          "description": "A hook option id, or 'original' for the creator's own opening"
+        },
+        "text": {
+          "type": "string"
+        },
+        "visual": {
+          "type": "string"
+        },
+        "onscreen": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "runs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/run"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      }
+    }
+  },
+  "properties": {
+    "performance_analysis": {
+      "type": "object"
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "version",
+        "language",
+        "dialect",
+        "depth",
+        "platform",
+        "target_seconds",
+        "register"
+      ],
+      "properties": {
+        "version": {
+          "const": "rss-2.2"
+        },
+        "language": {
+          "enum": [
+            "ar",
+            "en"
+          ]
+        },
+        "dialect": {
+          "enum": [
+            "iraqi",
+            "gulf",
+            "saudi",
+            "egyptian",
+            "levantine",
+            "msa",
+            "pan_arab",
+            "english"
+          ]
+        },
+        "depth": {
+          "enum": [
+            "full",
+            "quick"
+          ]
+        },
+        "platform": {
+          "enum": [
+            "instagram",
+            "tiktok",
+            "youtube_shorts",
+            "unknown"
+          ]
+        },
+        "target_seconds": {
+          "type": "number",
+          "minimum": 5,
+          "maximum": 180
+        },
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string",
+          "description": "Short ASCII name used for output files, e.g. claude-projects-reel"
+        },
+        "pacing": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Optional measured pace (words per minute) that overrides the defaults",
+          "properties": {
+            "hook": {
+              "type": "number",
+              "minimum": 60,
+              "maximum": 260
+            },
+            "body": {
+              "type": "number",
+              "minimum": 60,
+              "maximum": 260
+            },
+            "cta": {
+              "type": "number",
+              "minimum": 60,
+              "maximum": 260
+            }
+          }
+        },
+        "register": {
+          "enum": [
+            "heavy",
+            "light",
+            "simplified_msa"
+          ]
+        }
+      }
+    },
+    "intake": {
+      "type": "object",
+      "required": [
+        "goal",
+        "style",
+        "recording",
+        "proof",
+        "defaults_used"
+      ],
+      "properties": {
+        "goal": {
+          "enum": [
+            "reach",
+            "saves",
+            "shares",
+            "follows",
+            "leads",
+            "sales"
+          ]
+        },
+        "style": {
+          "enum": [
+            "yapping",
+            "infotainment",
+            "asmr_whisper",
+            "professional",
+            "hype",
+            "deadpan",
+            "relaxed_narrator"
+          ]
+        },
+        "default_style": {
+          "description": "The loaded profile's default_style (only when a profile was loaded); intake.style may be a one-off",
+          "enum": [
+            "yapping",
+            "infotainment",
+            "asmr_whisper",
+            "professional",
+            "hype",
+            "deadpan",
+            "relaxed_narrator"
+          ]
+        },
+        "content_category": {
+          "enum": [
+            "tech",
+            "education",
+            "informational",
+            "travel",
+            "history",
+            "news",
+            "business",
+            "lifestyle",
+            "food",
+            "fitness",
+            "beauty",
+            "comedy",
+            "other"
+          ]
+        },
+        "voice_sample": {
+          "type": "string"
+        },
+        "voice_fingerprint": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "performance": {
+          "type": "array",
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "required": [
+              "label",
+              "views"
+            ],
+            "properties": {
+              "label": {
+                "enum": [
+                  "best",
+                  "weak",
+                  "other"
+                ]
+              },
+              "views": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "likes": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "comments": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "shares": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "saves": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "followers": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "hold_3s_pct": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "avg_watch_s": {
+                "type": "number",
+                "minimum": 0
+              },
+              "length_s": {
+                "type": "number",
+                "minimum": 1
+              },
+              "viewers": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "interactions": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "accounts_engaged": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "profile_activity": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "follows": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "views_follower_pct": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "views_nonfollower_pct": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "interactions_follower_pct": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "interactions_nonfollower_pct": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "cta_keyword": {
+                "type": "string"
+              },
+              "transcript": {
+                "type": "string"
+              },
+              "skip_rate_pct": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100,
+                "description": "Share of views that left within the first 3 seconds (Instagram Reels Insights 'Skip rate')"
+              }
+            }
+          }
+        },
+        "best_script": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "text": {
+              "type": "string"
+            },
+            "numbers": {
+              "type": "string"
+            }
+          }
+        },
+        "recording": {
+          "type": "object",
+          "required": [
+            "method"
+          ],
+          "properties": {
+            "method": {
+              "enum": [
+                "own_voice_camera",
+                "voice_over",
+                "screen_recording",
+                "ai_voice",
+                "none"
+              ]
+            },
+            "elevenlabs_model": {
+              "enum": [
+                "v4",
+                "v4_turbo",
+                "v3",
+                "multilingual_v2",
+                "other",
+                "none"
+              ]
+            }
+          }
+        },
+        "proof": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "screenshots",
+              "before_after",
+              "results",
+              "demo_footage",
+              "none"
+            ]
+          }
+        },
+        "defaults_used": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "original_draft": {
+          "type": "string"
+        },
+        "audience": {
+          "type": "string",
+          "description": "Who the Reel is for, in one line"
+        },
+        "niche": {
+          "type": "string"
+        },
+        "human_texture": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cta_destination": {
+          "enum": [
+            "link_in_bio",
+            "comment_keyword",
+            "dm",
+            "follow",
+            "website",
+            "none"
+          ]
+        },
+        "must_keep": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Exact words the creator asked to keep (series name, comment keyword, a line). Each must be spoken in the final script."
+        }
+      }
+    },
+    "idea": {
+      "type": "object",
+      "required": [
+        "type",
+        "routing",
+        "scores",
+        "verdict",
+        "direction",
+        "basis"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "tutorial",
+            "tips",
+            "product",
+            "case_study",
+            "story",
+            "opinion",
+            "news",
+            "comparison",
+            "behind_scenes",
+            "ugc_ad"
+          ]
+        },
+        "routing": {
+          "enum": [
+            "spoken",
+            "text_only"
+          ]
+        },
+        "scores": {
+          "type": "object",
+          "required": [
+            "clarity",
+            "viewer_value",
+            "angle",
+            "audience_fit",
+            "provability"
+          ],
+          "properties": {
+            "clarity": {
+              "$ref": "#/$defs/scored"
+            },
+            "viewer_value": {
+              "$ref": "#/$defs/scored"
+            },
+            "angle": {
+              "$ref": "#/$defs/scored"
+            },
+            "audience_fit": {
+              "$ref": "#/$defs/scored"
+            },
+            "provability": {
+              "$ref": "#/$defs/scored"
+            }
+          }
+        },
+        "verdict": {
+          "enum": [
+            "strong",
+            "sharpen",
+            "rethink"
+          ]
+        },
+        "awareness_stage": {
+          "enum": [
+            "unaware",
+            "problem_aware",
+            "solution_aware",
+            "product_aware",
+            "most_aware"
+          ]
+        },
+        "angles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "chosen_angle": {
+          "type": "string"
+        },
+        "direction": {
+          "type": "string"
+        },
+        "basis": {
+          "type": "string"
+        },
+        "benchmark": {
+          "type": "string"
+        },
+        "regulated": {
+          "type": "boolean",
+          "description": "Health, supplements, finance, crypto, legal, or income claims"
+        },
+        "takeaway": {
+          "type": "string",
+          "description": "The one thing the viewer can do or know after watching"
+        },
+        "angles_seen": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "angle": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "avoided_angle": {
+          "type": "object",
+          "required": [
+            "angle",
+            "source"
+          ],
+          "properties": {
+            "angle": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            }
+          }
+        },
+        "honest_take": {
+          "type": "string",
+          "description": "Required unless the verdict is strong: what's weak, what would be better, and that the decision is the creator's. In the user's language; no predictions."
+        },
+        "creator_choice": {
+          "enum": [
+            "as_is",
+            "suggested_angle"
+          ],
+          "description": "Rethink only: what the creator decided after the honest take."
+        }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "required": [
+        "findings",
+        "voice",
+        "claims"
+      ],
+      "properties": {
+        "findings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "line",
+              "issue",
+              "severity",
+              "fix"
+            ],
+            "properties": {
+              "line": {
+                "type": "string"
+              },
+              "issue": {
+                "type": "string"
+              },
+              "severity": {
+                "$ref": "#/$defs/severity"
+              },
+              "fix": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              },
+              "second": {
+                "type": "number"
+              },
+              "viewer_thought": {
+                "type": "string"
+              },
+              "basis": {
+                "$ref": "#/$defs/basis"
+              }
+            }
+          }
+        },
+        "voice": {
+          "type": "object",
+          "required": [
+            "dialect",
+            "confidence",
+            "source"
+          ],
+          "properties": {
+            "dialect": {
+              "type": "string"
+            },
+            "confidence": {
+              "enum": [
+                "high",
+                "medium",
+                "low"
+              ]
+            },
+            "source": {
+              "enum": [
+                "voice_sample",
+                "best_script",
+                "stated_dialect",
+                "draft_only",
+                "none"
+              ]
+            },
+            "replaced": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string"
+                  },
+                  "to": {
+                    "type": "string"
+                  },
+                  "why": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "confirm_words": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "spelling_fixes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string"
+                  },
+                  "to": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "claims": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "text",
+              "type",
+              "action",
+              "status"
+            ],
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "opinion",
+                  "factual",
+                  "result",
+                  "offer"
+                ]
+              },
+              "action": {
+                "enum": [
+                  "keep",
+                  "keep_with_evidence",
+                  "soften",
+                  "replace",
+                  "remove"
+                ],
+                "description": "keep is only valid for opinions"
+              },
+              "evidence": {
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "observed",
+                  "source_supported",
+                  "creator_attested",
+                  "unsupported",
+                  "not_factual"
+                ]
+              },
+              "sources": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "retention_risks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "beat": {
+                "type": "string"
+              },
+              "risk": {
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ]
+              },
+              "reason": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "top_fixes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 3
+        }
+      }
+    },
+    "beats": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "options"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "hook",
+              "retention",
+              "problem",
+              "solution",
+              "proof",
+              "cta"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "description": "Slot name for this Reel type, e.g. Story: Setup / Turn / Lesson"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/option"
+            },
+            "minItems": 3,
+            "maxItems": 5
+          }
+        }
+      }
+    },
+    "anchor_terms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Product name / plain noun allowed in up to 2 beats"
+    },
+    "presets": {
+      "type": "object",
+      "required": [
+        "recommended",
+        "safe_edit",
+        "bold"
+      ],
+      "properties": {
+        "recommended": {
+          "type": "object",
+          "description": "beat id -> option id"
+        },
+        "safe_edit": {
+          "type": "object"
+        },
+        "bold": {
+          "type": "object"
+        }
+      }
+    },
+    "final_script": {
+      "type": "object",
+      "required": [
+        "lines"
+      ],
+      "properties": {
+        "lines": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "beat",
+              "text"
+            ],
+            "properties": {
+              "beat": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "declared_words": {
+          "type": "integer"
+        },
+        "declared_seconds": {
+          "type": "number"
+        }
+      }
+    },
+    "tight_cut": {
+      "type": "object",
+      "properties": {
+        "lines": {
+          "type": "array"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "description": "Written by scripts/validate.py only"
+    },
+    "council": {
+      "type": "object",
+      "required": [
+        "rounds",
+        "final_decision",
+        "summary"
+      ],
+      "properties": {
+        "rounds": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "round": {
+                "type": "integer"
+              },
+              "verdicts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "member",
+                    "verdict",
+                    "reason",
+                    "quote",
+                    "weakest_line",
+                    "scores"
+                  ],
+                  "properties": {
+                    "member": {
+                      "enum": [
+                        "Strategy Director",
+                        "Creative Director",
+                        "Voice Guardian",
+                        "Performance Analyst",
+                        "Trust Officer"
+                      ]
+                    },
+                    "verdict": {
+                      "enum": [
+                        "approve",
+                        "revise",
+                        "reject"
+                      ]
+                    },
+                    "reason": {
+                      "type": "string"
+                    },
+                    "changes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "quote": {
+                      "type": "string",
+                      "description": "Exact text from the script this verdict is about"
+                    },
+                    "weakest_line": {
+                      "type": "string",
+                      "description": "Weakest line in the script, quoted, even when approving"
+                    },
+                    "scores": {
+                      "type": "object",
+                      "description": "1-5 per rubric criterion of this member"
+                    },
+                    "basis": {
+                      "$ref": "#/$defs/basis"
+                    }
+                  }
+                }
+              },
+              "decision": {
+                "enum": [
+                  "ship",
+                  "revise",
+                  "ship_with_issues",
+                  "blocked_claim"
+                ]
+              }
+            }
+          },
+          "maxItems": 3
+        },
+        "final_decision": {
+          "enum": [
+            "ship",
+            "ship_with_issues",
+            "blocked_claim"
+          ]
+        },
+        "open_issues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "summary": {
+          "type": "string"
+        },
+        "mode": {
+          "enum": [
+            "single_context",
+            "subagents"
+          ]
+        }
+      }
+    },
+    "voice": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "performance": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "line",
+              "energy",
+              "emphasis",
+              "pace"
+            ],
+            "properties": {
+              "line": {
+                "type": "string"
+              },
+              "energy": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "feeling": {
+                "type": "string"
+              },
+              "emphasis": {
+                "type": "string"
+              },
+              "pace": {
+                "enum": [
+                  "fast",
+                  "normal",
+                  "slow"
+                ]
+              },
+              "pronunciation": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "energy_arc": {
+          "type": "string"
+        },
+        "tips": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "coaching": {
+          "type": "object",
+          "properties": {
+            "keep": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/coach"
+              }
+            },
+            "change": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/coach"
+              }
+            }
+          }
+        },
+        "elevenlabs": {
+          "type": "object",
+          "properties": {
+            "model": {
+              "enum": [
+                "v4",
+                "v4_turbo",
+                "v3",
+                "multilingual_v2",
+                "other"
+              ]
+            },
+            "clips": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "beat",
+                  "text"
+                ],
+                "properties": {
+                  "beat": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "settings": {
+              "type": "object"
+            },
+            "notes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "production": {
+      "type": "object",
+      "required": [
+        "shots"
+      ],
+      "properties": {
+        "cover": {
+          "type": "string"
+        },
+        "opening_frame": {
+          "type": "string"
+        },
+        "shots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "time",
+              "visual",
+              "beat",
+              "onscreen"
+            ],
+            "properties": {
+              "time": {
+                "type": "string"
+              },
+              "visual": {
+                "type": "string"
+              },
+              "beat": {
+                "type": "string"
+              },
+              "voice": {
+                "type": "string"
+              },
+              "onscreen": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "recording_order": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "safe_zone_note": {
+          "type": "string"
+        },
+        "proof_shots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "shot",
+              "how"
+            ],
+            "properties": {
+              "shot": {
+                "type": "string"
+              },
+              "how": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "publish": {
+      "type": "object",
+      "required": [
+        "caption",
+        "hashtags"
+      ],
+      "properties": {
+        "caption": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hashtags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 5
+        },
+        "cover_text": {
+          "type": "string"
+        },
+        "pinned_comment": {
+          "type": "string"
+        },
+        "automation": {
+          "type": "object",
+          "properties": {
+            "keyword": {
+              "type": "string"
+            },
+            "variants": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "public_replies": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "dm": {
+              "type": "string"
+            }
+          }
+        },
+        "guideline_flags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ai_label": {
+          "type": "boolean"
+        },
+        "test_plan": {
+          "type": "string",
+          "description": "Which two hooks to test and how; never predicts a winner"
+        }
+      }
+    },
+    "self_assessment": {
+      "type": "object",
+      "required": [
+        "score",
+        "weaknesses"
+      ],
+      "properties": {
+        "score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Self-assessed, likely optimistic"
+        },
+        "weaknesses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2
+        }
+      }
+    },
+    "generic_baseline": {
+      "type": "string",
+      "description": "Optional since rss-2.2: the original hook competes in the Hook Lab instead."
+    },
+    "research": {
+      "type": "object",
+      "required": [
+        "status",
+        "questions",
+        "sources",
+        "limitations"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "completed",
+            "partial",
+            "unavailable",
+            "declined"
+          ]
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Decision questions written before searching"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          }
+        },
+        "limitations": {
+          "type": "string"
+        }
+      }
+    },
+    "concept": {
+      "type": "object",
+      "required": [
+        "logline",
+        "turn",
+        "promise",
+        "payoff_beat",
+        "payoff_line",
+        "journey",
+        "details"
+      ],
+      "properties": {
+        "logline": {
+          "type": "string",
+          "description": "One sentence: what the viewer sees, learns and feels"
+        },
+        "turn": {
+          "type": "string",
+          "description": "The moment the viewer's understanding changes"
+        },
+        "promise": {
+          "type": "string",
+          "description": "What the hook promises"
+        },
+        "payoff_beat": {
+          "enum": [
+            "hook",
+            "retention",
+            "problem",
+            "solution",
+            "proof",
+            "cta"
+          ]
+        },
+        "payoff_line": {
+          "type": "string",
+          "description": "Exact words of the final script where the promise is paid"
+        },
+        "journey": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 3,
+          "maxItems": 6
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "detail",
+              "placement",
+              "reason"
+            ],
+            "properties": {
+              "detail": {
+                "type": "string"
+              },
+              "placement": {
+                "enum": [
+                  "speech",
+                  "visual",
+                  "caption",
+                  "cut"
+                ]
+              },
+              "reason": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "viewer_mind": {
+      "type": "object",
+      "required": [
+        "personas",
+        "candidates",
+        "chosen",
+        "unresolved"
+      ],
+      "description": "Simulation from research and the creator's data, not a prediction.",
+      "properties": {
+        "personas": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/persona"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "candidates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/candidate"
+          },
+          "minItems": 2,
+          "maxItems": 3
+        },
+        "chosen": {
+          "type": "string"
+        },
+        "unresolved": {
+          "type": "string",
+          "description": "Why no candidate holds target and stranger; empty when one does"
+        }
+      }
+    }
+  }
+}
